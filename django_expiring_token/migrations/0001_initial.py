@@ -4,6 +4,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
     operations = [
         migrations.CreateModel(
@@ -16,6 +19,7 @@ class Migration(migrations.Migration):
                                               to=settings.AUTH_USER_MODEL, verbose_name='User')),
             ],
             options={
+                'db_table': 'expiring_authtoken',
                 'verbose_name': 'Token',
                 'verbose_name_plural': 'Tokens',
                 'abstract': False,

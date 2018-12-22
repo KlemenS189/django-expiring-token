@@ -1,5 +1,3 @@
-"""Package adding time expiration to Django REST Framework's auth tokens."""
-
 __all__ = [
     'authentication',
     'models',
@@ -7,3 +5,5 @@ __all__ = [
 ]
 
 __version__ = '0.1'
+
+default_app_config = "django_expiring_token.apps.ExpiringTokensConfig"

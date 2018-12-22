@@ -1,7 +1,7 @@
 import os
 import sys
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 import django_expiring_token
 
@@ -30,7 +30,7 @@ if sys.argv[-1] == 'publish':
 setup(
     name='django-expiring-token',
     version=version,
-    packages=find_packages(exclude=['tests*']),
+    packages=['django_expiring_token', 'django_expiring_token.migrations'],
     install_requires=[
         'djangorestframework>=3.4.0'
     ],

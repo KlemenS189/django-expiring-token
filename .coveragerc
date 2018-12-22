@@ -1,3 +1,10 @@
 [run]
 source = django_expiring_token
-omit = rest_framework_expiring_authtoken/migrations/*
+omit =
+    django_expiring_token/urls.py
+    django_expiring_token/admin.py
+
+[report]
+exclude_lines =
+    def __repr__
+    def __str__

@@ -1,2 +1,3 @@
 include LICENSE
 include README.rst
+include django_expiring_token/migrations
