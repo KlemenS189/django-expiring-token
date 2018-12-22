@@ -59,3 +59,4 @@ To run tests
 2. Run tests::
 
     coverage run runtest.py
+
