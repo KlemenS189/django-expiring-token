@@ -29,8 +29,33 @@ Quick start
 4. Add the expiration time in `settings.py`::
 
     EXPIRING_TOKEN_DURATION=timedelta(hours=1)
-    # Any timedelta setting can be used!
+    # Any timedelta setting can be used! If not set, the default value is 1 day
 
-4. Run `python manage.py migrate` to create the ExpiringToken model.
+5. Add the default authentication class in `REST_FRAMEWORK` settings in `settings.py`::
 
-5. Start the development server.
+    REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            ...
+            'django_expiring_token.authentication.ExpiringTokenAuthentication',
+            ...
+        ),
+    }
+
+6. Run `python manage.py migrate` to create package migrations
+
+7. Start the development server an you are good to go.
+
+Tests
+-----
+
+This build is tested against Python versions 3.4, 3.5, 3,6 with Django versions 2.0.8+
+
+To run tests
+
+1. Install `coverage`::
+
+    pip install coverage
+
+2. Run tests::
+
+    coverage run runtest.py
