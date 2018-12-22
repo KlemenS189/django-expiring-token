@@ -7,7 +7,6 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from django_expiring_token.authentication import ExpiringTokenAuthentication
 from django_expiring_token.models import ExpiringToken
 
 
@@ -31,6 +30,17 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
             key=self.key
         )
         self.client = APIClient()
+
+    def test_create_token(self):
+        user = User.objects.create_user(
+            username="test",
+            email="",
+            password="abcd1234"
+        )
+        data = {'username': 'test', 'password': 'abcd1234'}
+        resp = self.client.post(reverse('obtain-token'), data)
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
     def test_obtain_token_no_credentials(self):
         resp = self.client.post(reverse('obtain-token'))
