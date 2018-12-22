@@ -1,0 +1,19 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+env:
+#  - DJANGO_VERSION=1.11.5
+#  - DJANGO_VERSION=2.0.8
+#  - DJANGO_VERSION=2.1
+#  - DJANGO_VERSION=2.1
+  - DJANGO_VERSION=2.1.4
+install:
+  - pip install Django==$DJANGO_VERSION djangorestframework==3.9.0
+  - pip install coverage==4.5.2
+  - pip install coveralls
+script:
+  coverage run runtests.py
+after_success:
+  coveralls
