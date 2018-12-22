@@ -43,18 +43,21 @@ setup(
     description='Expiring token with expiration time update for Django Rest Framework',
     long_description=README,
     author='Klemen Štrajhar',
-    url='https://github.com/KlemenS189/django_expiring_token',
+    url='https://github.com/KlemenS189/django-expiring-token',
     author_email='klemen.strajhar@gmail.si',
     classifiers=[
-        'Development Status :: 1 - Production/Stable',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',  # example license
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
         'Topic :: Internet :: WWW/HTTP',
     ],
 )
