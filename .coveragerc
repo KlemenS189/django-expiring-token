@@ -1,0 +1,3 @@
+[run]
+source = django_expiring_token
+omit = rest_framework_expiring_authtoken/migrations/*
