@@ -9,15 +9,9 @@ from django_expiring_token.models import ExpiringToken
 from django_expiring_token.settings import custom_settings
 
 
-def expires_in(token):
-    time_elapsed = timezone.now() - token.created
-    left_time = custom_settings.EXPIRING_TOKEN_DURATION - time_elapsed
-    return left_time
-
-
 # token checker if token expired or not
 def is_token_expired(token):
-    return expires_in(token) < timedelta(seconds=0)
+    return token.expires - timezone.now() < timedelta(seconds=0)
 
 
 # if token is expired new token will be established

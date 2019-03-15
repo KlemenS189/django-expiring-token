@@ -1,6 +1,8 @@
 from datetime import timedelta
 
 SECRET_KEY = 'fake-key'
+# token expiry time used during tests
+EXPIRING_TOKEN_DURATION = timedelta(seconds=0.1)
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
