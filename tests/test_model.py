@@ -35,6 +35,6 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
         self.assertFalse(is_token_expired(self.token))
 
     def test_expired_token(self):
-        with self.settings(EXPIRING_TOKEN_DURATION=timedelta(milliseconds=1)):
-            sleep(0.005)
-            self.assertTrue(is_token_expired(self.token))
+        # let the token expire
+        sleep(0.1)
+        self.assertTrue(is_token_expired(self.token))

@@ -82,9 +82,9 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
 
         data = {'username': 'test_username', 'password': 'test_password'}
 
-        with self.settings(EXPIRING_TOKEN_DURATION=timedelta(milliseconds=1)):
-            sleep(0.005)
-            resp = self.client.post(reverse('obtain-token'), data)
+        # let the token expire
+        sleep(0.5)
+        resp = self.client.post(reverse('obtain-token'), data)
 
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
@@ -93,4 +93,3 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
         self.assertEqual(token.user, self.user)
         self.assertEqual(resp.data['token'], token.key)
         self.assertTrue(key_1 != key_2)
-

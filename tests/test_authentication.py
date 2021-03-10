@@ -64,13 +64,12 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
 
     def test_expired_token(self):
         """Check that an expired token cannot authenticate."""
-        # Crude, but necessary as auto_now_add field can't be changed.
-        with self.settings(EXPIRING_TOKEN_DURATION=timedelta(milliseconds=1)):
-            sleep(0.001)
+        # let the token expire
+        sleep(0.1)
 
-            try:
-                self.test_instance.authenticate_credentials(self.key)
-            except AuthenticationFailed as e:
-                self.assertEqual(e.__str__(), 'The Token is expired')
-            else:
-                self.fail("AuthenticationFailed not raised.")
+        try:
+            self.test_instance.authenticate_credentials(self.key)
+        except AuthenticationFailed as e:
+            self.assertEqual(e.__str__(), 'The Token is expired')
+        else:
+            self.fail("AuthenticationFailed not raised.")
