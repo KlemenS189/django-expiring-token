@@ -21,11 +21,12 @@ It implements the following functionalities:
     ```
     INSTALLED_APPS = [
         ...
+        'rest_framework',
         'django_expiring_token',
     ]
     ```
 
-3. Include the polls URLconf in your project urls.py like this:
+3. Include the URLconf in your project urls.py like this:
     ```
     path('custom-url/', include('django_expiring_token.urls')),
     ```
@@ -46,10 +47,10 @@ It implements the following functionalities:
     ```
 5. Run `python manage.py migrate` to create package migrations
 
-6. Start the development server an you are good to go.
+6. Start the development server and you are good to go.
 
 ## Tests
-This build is tested against Python versions 3.4, 3.5, 3,6 with Django versions 2.0.8+
+This build is tested against Python versions 3.4, 3.5, 3.6, 3.7, 3.8, 3.9 with Django versions 2.0.8+
 To run tests
 1. Install ```coverage```
     ```
