@@ -32,7 +32,7 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
         self.client = APIClient()
 
     def test_create_token(self):
-        user = User.objects.create_user(
+        User.objects.create_user(
             username="test",
             email="",
             password="abcd1234"
@@ -41,6 +41,19 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
         resp = self.client.post(reverse('obtain-token'), data)
 
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertTrue('token' in resp.data)
+
+    def test_custom_url(self):
+        User.objects.create_user(
+            username="test",
+            email="",
+            password="abcd1234"
+        )
+        data = {'username': 'test', 'password': 'abcd1234'}
+        resp = self.client.post(reverse('login'), data)
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertTrue('token' in resp.data)
 
     def test_obtain_token_no_credentials(self):
         resp = self.client.post(reverse('obtain-token'))
@@ -93,4 +106,3 @@ class ExpiringTokenAuthenticationTestCase(TestCase):
         self.assertEqual(token.user, self.user)
         self.assertEqual(resp.data['token'], token.key)
         self.assertTrue(key_1 != key_2)
-

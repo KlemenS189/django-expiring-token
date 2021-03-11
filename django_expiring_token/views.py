@@ -29,6 +29,9 @@ class LoginView(APIView):
 
         # token_expire_handler will check, if the token is expired it will generate new one
         is_expired, token = token_expire_handler(token)  # The implementation will be described further
-        return Response({
-            'token': token.key
-        }, status=HTTP_200_OK)
+        return Response(
+            {
+                'token': token.key
+            },
+            status=HTTP_200_OK
+        )

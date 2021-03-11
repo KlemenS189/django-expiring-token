@@ -21,7 +21,7 @@ class ExpiringToken(models.Model):
         on_delete=models.CASCADE, verbose_name=_("User")
     )
     created = models.DateTimeField(_("Created"), auto_now_add=True)
-    expires = models.DateTimeField(_("Expires in"), )
+    expires = models.DateTimeField(_("Expires in"), db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.key:
@@ -30,7 +30,7 @@ class ExpiringToken(models.Model):
         self.expires = timezone.now() + custom_settings.EXPIRING_TOKEN_DURATION
         return super(ExpiringToken, self).save(*args, **kwargs)
 
-    def generate_key(self):
+    def generate_key(self) -> str:
         return binascii.hexlify(os.urandom(25)).decode()
 
     def __str__(self):

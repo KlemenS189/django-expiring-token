@@ -1,5 +1,7 @@
+import typing
 from datetime import timedelta
 
+from django.contrib.auth.models import User
 from django.utils import timezone
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.exceptions import AuthenticationFailed
@@ -9,25 +11,25 @@ from django_expiring_token.models import ExpiringToken
 from django_expiring_token.settings import custom_settings
 
 
-def expires_in(token):
+def expires_in(token: ExpiringToken) -> timedelta:
     time_elapsed = timezone.now() - token.created
     left_time = custom_settings.EXPIRING_TOKEN_DURATION - time_elapsed
     return left_time
 
 
 # token checker if token expired or not
-def is_token_expired(token):
+def is_token_expired(token: ExpiringToken) -> bool:
     return expires_in(token) < timedelta(seconds=0)
 
 
 # if token is expired new token will be established
 # If token is expired then it will be removed
 # and new one with different key will be created
-def token_expire_handler(token):
+def token_expire_handler(token: ExpiringToken) -> typing.Tuple[bool, ExpiringToken]:
     is_expired = is_token_expired(token)
     if is_expired:
         token.delete()
-        token = ExpiringToken.objects.create(user=token.user)
+        token: ExpiringToken = ExpiringToken.objects.create(user=token.user)
     return is_expired, token
 
 
@@ -39,7 +41,7 @@ class ExpiringTokenAuthentication(TokenAuthentication):
     and new one with different key will be created
     """
 
-    def authenticate_credentials(self, key):
+    def authenticate_credentials(self, key: str) -> typing.Tuple[User, ExpiringToken]:
         try:
             token = ExpiringToken.objects.get(key=key)
         except ExpiringToken.DoesNotExist:
