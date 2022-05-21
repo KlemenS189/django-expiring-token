@@ -4,16 +4,19 @@ python:
   - "3.7"
   - "3.8"
   - "3.9"
+  - "3.10"
 env:
   - DJANGO_VERSION=2.2
   - DJANGO_VERSION=3.0.13
   - DJANGO_VERSION=3.1.7
+  - DJANGO_VERSION=3.2.13
+  - DJANGO_VERSION=4.0.4
 
 matrix:
   fast_finish: true
 
 install:
-  - pip install Django==$DJANGO_VERSION djangorestframework==3.12.2
+  - pip install Django==$DJANGO_VERSION djangorestframework==3.13.1
   - pip install coverage==4.5.2
   - pip install coveralls
 script:
